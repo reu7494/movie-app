@@ -20,7 +20,10 @@ export default function App() {
       `https://www.omdbapi.com/?apikey=${API_KEY}&i=${movieID}`
     );
     const data = await res.json();
-    setMoviesData(data);
+    setMoviesData((prev) => ({
+      ...prev,
+      [movieID]: data,
+    }));
   };
 
   return (
@@ -41,6 +44,7 @@ export default function App() {
             <button
               onClick={() => {
                 movieInformation(movie.imdbID);
+                console.log(moviesData);
               }}
             >
               상세보기
