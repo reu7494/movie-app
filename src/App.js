@@ -5,7 +5,7 @@ export default function App() {
 
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [moviesData, setMoviesData] = useState([]);
+  const [moviesData, setMoviesData] = useState({});
 
   const searchMovies = async () => {
     const res = await fetch(
@@ -15,12 +15,12 @@ export default function App() {
     setMovies(data.Search);
   };
 
-  const movieInformation = async (imdbID) => {
+  const movieInformation = async (movieID) => {
     const res = await fetch(
-      `https://www.omdbapi.com/?apikey=${API_KEY}&i=${imdbID}`
+      `https://www.omdbapi.com/?apikey=${API_KEY}&i=${movieID}`
     );
     const data = await res.json();
-    setMoviesData(data.Search);
+    setMoviesData(data);
   };
 
   return (
@@ -37,7 +37,16 @@ export default function App() {
       <ul>
         {movies.map((movie) => (
           <li key={movie.imdbID}>
-            <strong>{movie.Title}</strong> ({movie.Year})<br />
+            <strong>{movie.Title}</strong> ({movie.Year})
+            <button
+              onClick={() => {
+                movieInformation(movie.imdbID);
+              }}
+            >
+              상세보기
+            </button>
+            {moviesData.imdbRating}
+            <br />
             <img src={movie.Poster} alt={movie.Title} />
           </li>
         ))}
