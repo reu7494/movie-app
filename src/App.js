@@ -22,7 +22,7 @@ export default function App() {
     const data = await res.json();
     setMoviesData((prev) => ({
       ...prev,
-      [movieID]: data,
+      [movieID]: data.imdbRating,
     }));
   };
 
@@ -31,9 +31,14 @@ export default function App() {
       <h2>🎬 영화 검색</h2>
       <input
         type="text"
+        pattern="[A-Za-z]+"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="영화 제목을 입력하세요"
+        onChange={(e) => {
+          const value = e.target.value;
+          const filtered = value.replace(/[^a-zA-Z0-9]/g, "");
+          setQuery(filtered);
+        }}
+        placeholder="영화 제목을 영어로 입력하세요"
       />
       <button onClick={searchMovies}>검색</button>
 
@@ -44,12 +49,11 @@ export default function App() {
             <button
               onClick={() => {
                 movieInformation(movie.imdbID);
-                console.log(moviesData);
               }}
             >
               상세보기
             </button>
-            {moviesData.imdbRating}
+            <strong>{moviesData[movie.imdbID]}</strong>
             <br />
             <img src={movie.Poster} alt={movie.Title} />
           </li>
