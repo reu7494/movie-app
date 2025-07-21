@@ -53,7 +53,7 @@ export default function App() {
             >
               상세보기
             </button>
-            <strong>{moviesData[movie.imdbID]}</strong>
+            <strong>평점: {moviesData[movie.imdbID]}</strong>
             <br />
             <img src={movie.Poster} alt={movie.Title} />
           </li>
