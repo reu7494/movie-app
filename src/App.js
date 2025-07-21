@@ -34,9 +34,9 @@ export default function App() {
         pattern="[A-Za-z]+"
         value={query}
         onChange={(e) => {
-          const value = e.target.value;
-          const filtered = value.replace(/[^a-zA-Z0-9]/g, "");
-          setQuery(filtered);
+          const value = e.target.value; //사용자 입력
+          const filtered = value.replace(/[^a-zA-Z0-9]/g, ""); // 영어, 숫자 외 문자 제거
+          setQuery(filtered); // 상태 업데이트
         }}
         placeholder="영화 제목을 영어로 입력하세요"
       />
